@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Drum Kit</title>
+
+<style media="screen">
+    body {
+    background-image: url("img/0.jpg");
+    width: cover;
+}
+    .keys {
+        width: 100%;
+        position: absolute;
+        top: 33%;
+        padding-left: 5%;
+    }
+
+    .keys > li {
+        display: inline-block;
+        list-style: none;
+        text-align: center;
+        border: 0 none gray;
+        border-radius: 2px;
+        width: 100px;
+        margin: 5px;
+        background-color: #999999;
+        transition: transform 0.5s,opacity 0.5s, background 0.5s, width 0.5s, height 0.5s;opacity: 1;
+    }
+
+    .keys > li > kbd {
+        font: 40px Helvetica bold;
+    }
+
+    .keys > li > p {
+        font: 15px Helvetica none;
+    }
+
+    #next_line {
+        margin-left: 5%;
+    }
+    .playing {
+        transform: rotate(180deg);
+         opacity: 0.6; 
+         background: #999999;
+    }
+</style>
+
+</head>
+    <body>
+        <ul class="keys">
+            <li data-key="Q" class="key">
+                <kbd>Q</kbd>
+                <p>Boom</p>
+                <audio data-key="Q">
+                    <source src="sounds/boom.wav">
+                </audio>
+            </li>
+            <li data-key="W" class="key">
+                <kbd>W</kbd>
+                <p>Clap</p>
+                <audio data-key="W">
+                    <source src="sounds/clap.wav">
+                </audio>
+            </li>
+            <li data-key="E" class="key">
+                <kbd>E</kbd>
+                <p>Hihat</p>
+                <audio data-key="E">
+                    <source src="sounds/hihat.wav">
+                </audio>
+            </li>
+            <li data-key="R" class="key">
+                <kbd>R</kbd>
+                <p>Kick</p>
+                <audio data-key="R">
+                    <source src="sounds/kick.wav">
+                </audio>
+            </li>
+            <li data-key="T" class="key">
+                <kbd>T</kbd>
+                <p>OpenHat</p>
+                <audio data-key="T">
+                    <source src="sounds/openhat.wav">
+                </audio>
+            </li>
+            <li data-key="Y" class="key">
+                <kbd>Y</kbd>
+                <p>Ride</p>
+                <audio data-key="Y">
+                    <source src="sounds/ride.wav">
+                </audio>
+            </li>
+            <li data-key="U" class="key">
+                <kbd>U</kbd>
+                <p>Snare</p>
+                <audio data-key="U">
+                    <source src="sounds/snare.wav">
+                </audio>
+            </li>
+            <li data-key="I" class="key">
+                <kbd>I</kbd>
+                <p>Tink</p>
+                <audio data-key="I">
+                    <source src="sounds/tink.wav">
+                </audio>
+            </li>
+            <li data-key="O" class="key">
+                <kbd>O</kbd>
+                <p>Tom</p>
+                <audio data-key="O">
+                    <source src="sounds/tom.wav">
+                </audio>
+            </li>
+            <li data-key="P" class="key">
+                <kbd>P</kbd>
+                <p>Boom</p>
+                <audio data-key="P">
+                    <source src="sounds/boom.wav">
+                </audio>
+            </li>
+            <br>
+            <li data-key="A" id="next_line" class="key">
+                <kbd>A</kbd>
+                <p>Clap</p>
+                <audio data-key="A">
+                    <source src="sounds/clap.wav">
+                </audio>
+            </li>
+            <li data-key="S" class="key">
+                <kbd>S</kbd>
+                <p>Hihat</p>
+                <audio data-key="S">
+                    <source src="sounds/hihat.wav">
+                </audio>
+            </li>
+            <li data-key="D" class="key">
+                <kbd>D</kbd>
+                <p>Kick</p>
+                <audio data-key="D">
+                    <source src="sounds/kick.wav">
+                </audio>
+            </li>
+            <li data-key="F" class="key">
+                <kbd>F</kbd>
+                <p>OpenHat</p>
+                <audio data-key="F">
+                    <source src="sounds/openhat.wav">
+                </audio>
+            </li>
+            <li data-key="G" class="key">
+                <kbd>G</kbd>
+                <p>Ride</p>
+                <audio data-key="G">
+                    <source src="sounds/ride.wav">
+                </audio>
+            </li>
+            <li data-key="H" class="key">
+                <kbd>H</kbd>
+                <p>Snare</p>
+                <audio data-key="H">
+                    <source src="sounds/snare.wav">
+                </audio>
+            </li>
+            <li data-key="J" class="key">
+                <kbd>J</kbd>
+                <p>Tink</p>
+                <audio data-key="J">
+                    <source src="sounds/tink.wav">
+                </audio>
+            </li>
+            <li data-key="K" class="key">
+                <kbd>K</kbd>
+                <p>Tom</p>
+                <audio data-key="K">
+                    <source src="sounds/tom.wav">
+                </audio>
+            </li>
+            <li data-key="L" class="key">
+                <kbd>L</kbd>
+                <p>Boom</p>
+                <audio data-key="L">
+                    <source src="sounds/boom.wav">
+                </audio>
+            </li>
+        </ul>
+
+<script type="text/javascript">
+
+ function stopPlaying(e) {
+    if (e.propertyName !== 'transform') return;
+    e.target.classList.remove('playing');
+ }
+
+
+function playSound(e) {
+    var audio = document.querySelector(`audio[data-key="${e.key.toUpperCase()}"]`);
+    var key = document.querySelector(`li[data-key="${e.key.toUpperCase()}"]`);
+    
+    if (!audio) return;
+
+    key.classList.add('playing');
+    audio.play() //& animate;
+
+}
+
+  var keyArray = Array.from(document.querySelectorAll('.key'));
+//   console.log(keyArray)
+  keyArray.forEach(keyArray => keyArray.addEventListener('transitionend', stopPlaying));
+  window.addEventListener('keydown', playSound);
+
+</script>
+
+</body>
+</html>
